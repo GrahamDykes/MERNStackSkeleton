@@ -42,3 +42,5 @@ mongoose.connect(`mongodb+srv://grahamdykes:<lQvKJDBj7YQviHmZ>@skeleton.uqb84.mo
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// mongoose angry! even old project isnt working properly
