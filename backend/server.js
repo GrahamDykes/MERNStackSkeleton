@@ -43,4 +43,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// mongoose angry! even old project isnt working properly
+// mongoose angry! even old project isnt working properly heh
