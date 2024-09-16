@@ -31,6 +31,9 @@ app.post('/todos', async (req, res) => {
   console.log('Task:/n', req.task)
   let tasky = req.task
   console.log('Tasky:/n', tasky)
+  // fucking promise?? read up on this broooo
+  //    https://stackoverflow.com/questions/59632734/promises-in-js-using-axios-to-write-to-mongodb
+  // document not saving task at all. not even blank
     const newTodo = new Todo( {task: tasky, completed:false} );
     await newTodo.save();
     console.log('mongo:/n', newTodo)
