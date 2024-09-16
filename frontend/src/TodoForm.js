@@ -4,7 +4,9 @@ const TodoForm = ({ onAdd }) => {
   const [task, setTask] = useState('');
   const addTodo = async () => {
     try {
+      //this shit is not transmitting task properly
       const response = await axios.post('http://localhost:5000/todos', { task });
+      console.log('Task:/n', task)
       onAdd(response.data);
       setTask('');
     } catch (error) {

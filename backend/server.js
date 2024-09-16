@@ -12,11 +12,15 @@ const Todo = mongoose.model('Todo', todoSchema);
 
 app.use(cors());
 
+
+//this cors setup should work in future projects
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+
   app.get('/todos', async (req, res) => {
     const todos = await Todo.find();
     res.json(todos);
@@ -24,8 +28,12 @@ app.use(function(req, res, next) {
 
 // Create a new todo
 app.post('/todos', async (req, res) => {
-    const newTodo = new Todo(req.body);
+  console.log('Task:/n', req.task)
+  let tasky = req.task
+  console.log('Tasky:/n', tasky)
+    const newTodo = new Todo( {task: tasky, completed:false} );
     await newTodo.save();
+    console.log('mongo:/n', newTodo)
     res.json(newTodo);
   });
   // Update an existing todo
@@ -48,11 +56,7 @@ app.use(express.json());
 // Define routes and middleware
 app.listen(PORT, () => {
   mongoose.connect(`mongodb+srv://grahamdykes:lQvKJDBj7YQviHmZ@skeleton.uqb84.mongodb.net/`)
-  .then(()=>console.log('Connected'))
-  .catch(()=>console.log('DB failure'))
-  
-  // console.log("connect: ", connect);
+  .then(()=>console.log('Connected to DataBase'))
+  .catch(()=>console.log('DataBase failure'))
   console.log(`Server is running on port ${PORT}`);
 });
-
-// mongoose angry! even old project isnt working properly heh

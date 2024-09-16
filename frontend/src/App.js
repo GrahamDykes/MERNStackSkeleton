@@ -25,7 +25,7 @@ const addTodo = (newTodo) => {
     <div>
       <h1>MERN Stack Todo App</h1>
       <TodoForm onAdd={addTodo} />
-      <ul>
+      <ul className='todoul'>
         {todos.map((todo) => (
           <li key={todo._id}>{todo.task}</li>
         ))}
