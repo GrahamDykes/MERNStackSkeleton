@@ -14,7 +14,7 @@ const addTodo = (newTodo) => {
   
   useEffect(() => {
     // Fetch data from the Express server
-    axios.get('http://localhost:5003/todos')
+    axios.get('http://localhost:5000/todos')
       .then(response => setTodos(response.data))
       .catch(error => console.error(error));
   }, []);
