@@ -4,11 +4,6 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const todoSchema = new mongoose.Schema({
-  task: String,
-  completed: Boolean,
-});
-const Todo = mongoose.model('Todo', todoSchema);
 
 app.use(cors());
 
@@ -20,24 +15,33 @@ app.use(function(req, res, next) {
   next();
 });
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 
-  app.get('/todos', async (req, res) => {
-    const todos = await Todo.find();
-    res.json(todos);
-  });
+const todoSchema = new mongoose.Schema({
+  task: String,
+  completed: Boolean,
+});
+const Todo = mongoose.model('Todo', todoSchema);
+
+app.get('/todos', async (req, res) => {
+  const todos = await Todo.find();
+  res.json(todos);
+});
 
 // Create a new todo
 app.post('/todos', async (req, res) => {
-  console.log('req.query:\n', req.query)
-  console.log('req.params:\n', req.params)
-  let tasky = req.body
-  console.log('Tasky:\n', tasky)
+  console.log('req.body:\n', req.body)
+  // let tasky = req.body.task
+  // console.log('Tasky:\n', tasky)
   // fucking promise?? read up on this broooo
   //    https://stackoverflow.com/questions/59632734/promises-in-js-using-axios-to-write-to-mongodb
   // document not saving task at all. not even blank
-    const newTodo = new Todo( {task: tasky, completed:false} );
+    const newTodo = new Todo( {task: req.body.task, completed:false} );
     await newTodo.save();
     console.log('mongo:\n', newTodo)
+    console.log('_id:\n', newTodo._id)
     res.json(newTodo);
   });
   // Update an existing todo

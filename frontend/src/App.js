@@ -27,7 +27,7 @@ const addTodo = (newTodo) => {
       <TodoForm onAdd={addTodo} />
       <ul className='todoul'>
         {todos.map((todo) => (
-          <li key={todo._id}>{todo.task}</li>
+          <li key={todo._id}>{todo.task}{todo.completed===false?<p>NotDone</p>:<p>Done</p>}</li>
         ))}
       </ul>
     </div>
