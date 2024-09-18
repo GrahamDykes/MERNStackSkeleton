@@ -33,11 +33,6 @@ app.get('/todos', async (req, res) => {
 // Create a new todo
 app.post('/todos', async (req, res) => {
   console.log('req.body:\n', req.body)
-  // let tasky = req.body.task
-  // console.log('Tasky:\n', tasky)
-  // fucking promise?? read up on this broooo
-  //    https://stackoverflow.com/questions/59632734/promises-in-js-using-axios-to-write-to-mongodb
-  // document not saving task at all. not even blank
     const newTodo = new Todo( {task: req.body.task, completed:false} );
     await newTodo.save();
     console.log('mongo:\n', newTodo)
@@ -51,7 +46,8 @@ app.post('/todos', async (req, res) => {
   });
   // Delete a todo
   app.delete('/todos/:id', async (req, res) => {
-    await Todo.findByIdAndRemove(req.params.id);
+    console.log('\n\nDelete Recieved:\n', req.params)
+    await Todo.findByIdAndDelete(req.params.id);
     res.json({ message: 'Todo deleted successfully' });
   });
 

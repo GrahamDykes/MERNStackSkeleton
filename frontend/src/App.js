@@ -19,7 +19,20 @@ const addTodo = (newTodo) => {
       .catch(error => console.error(error));
   }, []);
 
+  const deleteTodo = async (e) => {
+    let deleteTarget = e.target.value
 
+    try {
+      console.log('Frontend is sending:\n', e.target.value)
+      const response = await axios.delete(`http://localhost:5000/todos/${deleteTarget}`);
+      // onAdd(response.data);
+      // setTask('');
+    } catch (error) {
+      console.error(error);
+    }
+
+    setTodos(todos => todos.filter((u) => u._id !== deleteTarget));
+  };
 
   return (
     <div>
@@ -27,7 +40,11 @@ const addTodo = (newTodo) => {
       <TodoForm onAdd={addTodo} />
       <ul className='todoul'>
         {todos.map((todo) => (
-          <li key={todo._id}>{todo.task}{todo.completed===false?<p>NotDone</p>:<p>Done</p>}</li>
+          <li key={todo._id}>
+            {todo.task}
+            {<button onClick={deleteTodo} value={todo._id}>X</button>}
+            {todo.completed===false?<p>NotDone</p>:<p>Done</p>}
+            </li>
         ))}
       </ul>
     </div>
